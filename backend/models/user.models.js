@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
+
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -20,11 +21,17 @@ const userSchema = new mongoose.Schema({
         unique:true,
 
     },
-    photo:{
+   photo:{
+    public_id:{
         type:String,
         required:true,
-
     },
+    url:{
+        type:String,
+        required:true,
+    },
+
+},
     education:{
         type:String,
         required:true,
