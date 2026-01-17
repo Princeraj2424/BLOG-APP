@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema({
         select:false,
         minlength:[8,"password must be at least 8 characters Long"]
     },
+    token:{
+        type:String,
+    },
     createdAt:{
         type:Date,
         default:Date.now,
