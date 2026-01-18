@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.routes.js";
 import fileUpload from "express-fileupload"
 import { v2 as cloudinary } from 'cloudinary';
+import blogRoutes from "./routes/blog.route.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -14,11 +16,14 @@ console.log(MONGODB_URL);
 
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(fileUpload({
     useTempFiles:true,
     tempFileDir:"/tmp/"
-}))
+}));
+
 //connect DB
 try{
     await mongoose.connect(MONGODB_URL);
@@ -38,6 +43,7 @@ cloudinary.config({
 
 //define routes
 app.use("/api/users",userRoutes);
+app.use("/api/blogs",blogRoutes);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
