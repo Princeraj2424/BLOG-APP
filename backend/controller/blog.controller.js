@@ -74,5 +74,9 @@ export const createBlog = async(req,res)=>{
         });
     }
 }
+
+export const deleteBlog = async(req,res)=>{
+    
+}
     
 
