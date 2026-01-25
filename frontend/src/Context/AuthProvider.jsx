@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
             try {
                 const {data} = await axios.get("http://localhost:4001/api/blogs/all-blogs");
                 console.log(data);
-                setBlogs(data.blogs);
+                setBlogs(data);
             } catch (error) {
                 console.log("error fetching blogs:", error);
             }

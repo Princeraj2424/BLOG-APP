@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
   const[name,setName]=useState("");
@@ -44,7 +45,7 @@ const handleRegister = async (e) => {
       }
     });
     console.log(data);
-    alert('User register successfully')
+    toast.success(data.message || "User Registered Successfully");
     setName("");
     setEmail("");
     setPhone("");
@@ -57,12 +58,14 @@ const handleRegister = async (e) => {
 
   }catch(error){
     console.log(error);
+    toast.error(error.message || "Please fill the required fields")
   }
 };
 
 
   return (
-    
+    <>
+    <Toaster />
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         {/* Logo Section */}
@@ -139,6 +142,7 @@ const handleRegister = async (e) => {
         </form>
       </div>
       </div>
+    </>
   )
 }
 
