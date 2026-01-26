@@ -161,8 +161,8 @@ export const logout =(req,res)=>{
 export const getMyProfile = async (req,res)=>{
     const user = req.user;
     res.status(200).json({
-        succeess:true,
-        message:"User profile fetched successffully",
+        success:true,
+        message:"User profile fetched successfully",
         data:user
 
     })

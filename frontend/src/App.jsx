@@ -33,7 +33,7 @@ const App = () => {
       </Routes>
       {/*toast container*/}
       <Toaster/>
-      {!hideNavBarFooter && <Footer/>}
+      {/*!hideNavBarFooter && <Footer/>*/}
     </div>
   )
 }

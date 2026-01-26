@@ -2,12 +2,15 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../Context/AuthProvider'
 
 const Login = () => {
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
   const [role, setRole] = useState("");
+  const navigate = useNavigate();
+  const { setIsAuthenticated, setProfile } = useAuth();
 
   //handle login form submit
   const handleLogin = async (e) => {
@@ -29,10 +32,25 @@ const Login = () => {
         }
       });
       console.log(data);
+      
+      // Store token in localStorage
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+      }
+      
+      // Update auth context
+      setIsAuthenticated(true);
+      setProfile(data.data);
+      
       toast.success(data.message || "Login successful!");
       setEmail("");
       setPassword("");
       setRole("");
+      
+      // Navigate to dashboard
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000);
 
     }catch(error){
       console.log(error);
