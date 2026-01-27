@@ -6,6 +6,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Blogs from "./Components/Pages/Blogs";
 import Contact from "./Components/Pages/Contact";
 import Login from "./Components/Pages/Login";
+import About from "./Components/Pages/About";
 import Register from "./Components/Pages/Register";
 import Dashboard from "./Components/Pages/Dashboard";
 import Creator from "./Components/Pages/Creators";
@@ -25,15 +26,16 @@ const App = () => {
       <Routes> 
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/blogs"element={<Blogs/>}/>
-      <Route exact path="/contact"element={<Contact/>}/>
       <Route exact path="/creators"element={<Creator/>}/>
+      <Route exact path="/about"element={<About/>}/>
+      <Route exact path="/contact"element={<Contact/>}/>
       <Route exact path="/login"element={<Login/>}/>
       <Route exact path="/register"element={<Register/>}/>
       <Route exact path="/dashboard"element={<Dashboard/>}/>
       </Routes>
       {/*toast container*/}
       <Toaster/>
-      {/*!hideNavBarFooter && <Footer/>*/}
+      {!hideNavBarFooter && <Footer/>}
     </div>
   )
 }
