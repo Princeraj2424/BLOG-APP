@@ -21,7 +21,7 @@ function Creator() {
   return (
     <div className="container mx-auto my-10 p-6">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-green-600 pl-4">
-        Our Creators
+        Popular Creators
       </h2>
       
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
