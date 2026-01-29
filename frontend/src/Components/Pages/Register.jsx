@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { useAuth } from '../../Context/AuthProvider';
 
 const Register = () => {
   const[name,setName]=useState("");
@@ -13,8 +12,6 @@ const Register = () => {
   const[education,SetEducation]=useState("");
   const[photo,setPhoto]=useState("");
   const[photoPreview,setPhotoPreview]=useState("");
-  const navigate = useNavigate();
-  const { setIsAuthenticated, setProfile } = useAuth();
 
 //handle photo change when user signup
 const changePhotoHandler=(e)=>{
@@ -48,16 +45,6 @@ const handleRegister = async (e) => {
       }
     });
     console.log(data);
-    
-    // Store token in localStorage
-    if (data.token) {
-      localStorage.setItem('jwt', data.token);
-    }
-    
-    // Update auth context
-    setIsAuthenticated(true);
-    setProfile(data.data);
-    
     toast.success(data.message || "User Registered Successfully");
     setName("");
     setEmail("");
@@ -67,11 +54,6 @@ const handleRegister = async (e) => {
     SetEducation("");
     setPhoto("");
     setPhotoPreview("");
-    
-    // Navigate to dashboard
-    setTimeout(() => {
-      navigate('/dashboard');
-    }, 1000);
 
 
   }catch(error){

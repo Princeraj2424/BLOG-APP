@@ -7,4 +7,10 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
 })

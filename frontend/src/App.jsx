@@ -12,6 +12,8 @@ import Dashboard from "./Components/Pages/Dashboard";
 import Creator from "./Components/Pages/Creators";
 import { useAuth } from './Context/AuthProvider';
 import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const location = useLocation();
@@ -33,8 +35,8 @@ const App = () => {
       <Route exact path="/register"element={<Register/>}/>
       <Route exact path="/dashboard"element={<Dashboard/>}/>
       </Routes>
-      {/*toast container*/}
       <Toaster/>
+      <ToastContainer />
       {!hideNavBarFooter && <Footer/>}
     </div>
   )
