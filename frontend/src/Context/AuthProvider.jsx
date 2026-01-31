@@ -16,7 +16,6 @@ const AuthProvider = ({ children }) => {
                     withCredentials: true,
                     headers: { "Content-Type": "application/json" }
                 });
-                console.log(data);
                 setIsAuthenticated(true);
                 setProfile(data.data);
             } catch (error) {
@@ -27,7 +26,6 @@ const AuthProvider = ({ children }) => {
         const fetchBlogs = async () => {
             try {
                 const {data} = await axios.get("http://localhost:4001/api/blogs/all-blogs");
-                console.log(data);
                 setBlogs(data);
             } catch (error) {
                 console.log("error fetching blogs:", error);

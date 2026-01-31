@@ -43,7 +43,7 @@ function Contact() {
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10">
 
         {/* Left Info Panel */}
-        <div className="bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-3xl p-10 shadow-2xl flex flex-col justify-center">
+        <div className="bg-linear-to-br from-sky-500 to-blue-600 text-white rounded-3xl p-10 shadow-2xl flex flex-col justify-center">
           <h2 className="text-4xl font-bold mb-6">Let’s Talk</h2>
           <p className="text-blue-100 mb-10">
             Have a project in mind or just want to say hello?  
@@ -138,7 +138,7 @@ function Contact() {
             {/* Button */}
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold tracking-wide shadow-lg hover:scale-[1.02] transition-transform"
+              className="w-full py-3 rounded-lg bg-linear-to-r from-sky-500 to-blue-600 text-white font-semibold tracking-wide shadow-lg hover:scale-[1.02] transition-transform"
             >
               Send Message 
             </button>

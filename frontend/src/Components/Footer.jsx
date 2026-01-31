@@ -6,7 +6,7 @@ import { MdEmail } from 'react-icons/md'
 function Footer() {
   
   return (
-    <footer className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-6">
+    <footer className="bg-linear-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-6">
       <div className="container mx-auto px-6">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">

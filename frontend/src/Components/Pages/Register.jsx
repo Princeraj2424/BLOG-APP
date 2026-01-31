@@ -66,11 +66,11 @@ const handleRegister = async (e) => {
   return (
     <>
     <Toaster />
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Titli<span className="text-blue-500">Blog</span>
           </h2>
           <p className="mt-2 text-gray-600 text-sm">Create your account and start blogging</p>

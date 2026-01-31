@@ -18,7 +18,7 @@ function Devotional() {
               <div className='relative overflow-hidden'>
                 <img src={element.blogImage.url} alt={element.title} 
                   className="w-full h-44 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent'></div>
+                <div className='absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent'></div>
                 <h3 className='absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 text-white text-sm sm:text-base font-bold line-clamp-2 group-hover:text-purple-200 transition-colors'>
                   {element.title}
                 </h3>

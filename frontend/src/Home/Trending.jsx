@@ -49,7 +49,7 @@ function Trending() {
               <div className='relative'>
                 <img src={element.blogImage.url} alt={element.title} 
                 className="w-full h-56 object-cover" />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent'></div>
+                <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent'></div>
                 <h1 className='absolute bottom-4 left-4 right-4 text-white text-xl font-bold group-hover:text-yellow-400 transition-colors duration-300'>
                   {element.title}
                 </h1>    

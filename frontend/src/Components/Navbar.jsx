@@ -7,7 +7,6 @@ import { IoCloseSharp } from "react-icons/io5";
 const Navbar = () => {
   // Get user and blogs data from context
   const { user, blogs } = useAuth();
-  console.log(blogs);
   
   // State to show/hide mobile menu
   const [show, setShow] = useState(false);
@@ -17,7 +16,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center container mx-auto">
         
         {/* Logo  */}
-        <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Titli<span className="text-blue-500">Blog</span>
         </div>
         
