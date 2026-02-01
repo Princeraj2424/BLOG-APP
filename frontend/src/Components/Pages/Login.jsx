@@ -1,15 +1,17 @@
 
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useAuth } from '../../Context/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
-
+  
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
+  const { fetchProfile } = useAuth();
 
   //handle login form submit
   const handleLogin = async (e) => {
@@ -36,6 +38,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setRole("");
+      await fetchProfile();
       navigate('/');
 
     }catch(error){

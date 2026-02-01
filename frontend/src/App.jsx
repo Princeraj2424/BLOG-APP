@@ -12,6 +12,7 @@ import Dashboard from "./Components/Pages/Dashboard";
 import Creator from "./Components/Pages/Creators";
 import { useAuth } from './Context/AuthProvider';
 import { Toaster } from 'react-hot-toast';
+import Updateblog from './dashboard/Updateblog';
 
 const App = () => {
   const location = useLocation();
@@ -22,15 +23,17 @@ const App = () => {
     <div>
   {/*Define Routes*/}
       {!hideNavBarFooter && <Navbar/>}
-      <Routes> 
-      <Route exact path="/" element={<Home/>}/>
-      <Route exact path="/blogs"element={<Blogs/>}/>
-      <Route exact path="/creators"element={<Creator/>}/>
-      <Route exact path="/about"element={<About/>}/>
-      <Route exact path="/contact"element={<Contact/>}/>
-      <Route exact path="/login"element={<Login/>}/>
-      <Route exact path="/register"element={<Register/>}/>
-      <Route exact path="/dashboard"element={<Dashboard/>}/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/creators" element={<Creator />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        {/* routes for update blog */}
+        <Route path="/blogs/update/:id" element={<Updateblog />} />
       </Routes>
       {/*toast container*/}
       <Toaster/>

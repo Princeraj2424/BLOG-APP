@@ -37,5 +37,9 @@ const blogSchema = new mongoose.Schema({
         ref:"User",
         //required:true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 export const Blog = mongoose.model("Blog",blogSchema);

@@ -1,29 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function MyBlogs() {
   const [myBlogs, setMyBlogs] = useState([]);
+
+  // Fetch blogs
+  const fetchMyBlogs = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:4001/api/blogs/my-blogs", {
+        withCredentials: true,
+      });
+      setMyBlogs(data);
+    } catch (error) {
+      console.log("error fetching my blogs:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMyBlogs = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:4001/api/blogs/my-blogs", {
-          withCredentials: true,
-        });
-        console.log(data);
-        setMyBlogs(data);
-      } catch (error) {
-        console.log("error fetching my blogs:", error);
-      }
-    };
     fetchMyBlogs();
   }, []);
-  
+
+  // Handle delete
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this blog?');
+    if (!confirmDelete) return;
+    try {
+      await axios.delete(`http://localhost:4001/api/blogs/delete/${id}`, {
+        withCredentials: true,
+      });
+      toast.success('Blog deleted successfully');
+      fetchMyBlogs();
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+        error.message ||
+        'Failed to delete blog'
+      );
+    }
+  };
+
   let blogsArray = [];
-    if (Array.isArray(myBlogs)) {
-      blogsArray = myBlogs;
-    } else if (myBlogs && Array.isArray(myBlogs.myBlogs)) {
-      blogsArray = myBlogs.myBlogs;
+  if (Array.isArray(myBlogs)) {
+    blogsArray = myBlogs;
+  } else if (myBlogs && Array.isArray(myBlogs.myBlogs)) {
+    blogsArray = myBlogs.myBlogs;
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 via-blue-100 to-purple-100 pt-4 pb-10 px-4">
       <div className="max-w-6xl mx-auto">
@@ -40,13 +63,14 @@ function MyBlogs() {
                   <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors duration-200 truncate">{blog.title}</h3>
                   <p className="text-gray-500 text-xs mb-3 line-clamp-2">{blog.about}</p>
                   <div className="mt-auto flex flex-col gap-2">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-xs text-gray-400">{new Date(blog.createdAt).toLocaleDateString()}</span>
-                      <button className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow hover:scale-105 hover:bg-blue-700 transition-transform duration-200 text-xs">View</button>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                      <button className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-lg font-semibold shadow hover:scale-105 hover:bg-yellow-700 transition-transform duration-200 text-xs">Update</button>
-                      <button className="px-3 py-1 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-lg font-semibold shadow hover:scale-105 hover:bg-red-700 transition-transform duration-200 text-xs">Delete</button>
+                    <span className="text-xs text-gray-400 mb-2">
+                      {blog.createdAt && !isNaN(Date.parse(blog.createdAt))
+                        ? new Date(Date.parse(blog.createdAt)).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
+                        : 'Date not available'}
+                    </span>
+                    <div className="flex gap-2">
+                      <button className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-lg font-semibold shadow hover:scale-105 hover:bg-yellow-700 transition-transform duration-200 text-xs w-1/2">Update</button>
+                      <button onClick={() => handleDelete(blog._id)} className="px-3 py-1 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-lg font-semibold shadow hover:scale-105 hover:bg-red-700 transition-transform duration-200 text-xs w-1/2">Delete</button>
                     </div>
                   </div>
                 </div>

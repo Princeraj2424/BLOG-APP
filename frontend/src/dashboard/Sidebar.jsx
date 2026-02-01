@@ -28,14 +28,16 @@ React.useEffect(() => {
 }, []);
 
  const handleLogout = async () => {
-   try {
-     await axios.get("http://localhost:4001/api/users/logout", { withCredentials: true });
-     toast.success("Logged out successfully!");
-     setIsAuthenticated(false);
-     navigate("/login");
-   } catch (error) {
-     toast.error("Logout failed");
-   }
+     try {
+         await axios.get("http://localhost:4001/api/users/logout", { withCredentials: true });
+         setIsAuthenticated(false);
+         toast.success("You are logged out.");
+         setTimeout(() => {
+             navigate("/login");
+         }, 800); 
+     } catch (error) {
+         toast.error("Logout failed");
+     }
  };
 
  const menuItems = [

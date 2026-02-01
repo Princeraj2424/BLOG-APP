@@ -1,6 +1,55 @@
+import bcrypt from "bcryptjs";
+// Change Password
+export const changePassword = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { currentPassword, newPassword } = req.body;
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
+        const user = await User.findById(userId).select("+password");
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ success: false, message: "Current password is incorrect" });
+        }
+        if (newPassword.length < 8) {
+            return res.status(400).json({ success: false, message: "New password must be at least 8 characters" });
+        }
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+        res.status(200).json({ success: true, message: "Password changed successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to change password" });
+    }
+};
+// Update Profile
+export const updateProfile = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { name, email, phone, education } = req.body;
+        const updateFields = {};
+        if (name) updateFields.name = name;
+        if (email) updateFields.email = email;
+        if (phone) updateFields.phone = phone;
+        if (education) updateFields.education = education;
+        const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true });
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            data: updatedUser,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to update profile",
+        });
+    }
+};
 import { User } from "../models/user.models.js";
 import { v2 as cloudinary } from "cloudinary";
-import bcrypt from "bcryptjs";
 import  {createTokenAndSaveCookies}  from "../jwt/AuthToken.js";
 
 

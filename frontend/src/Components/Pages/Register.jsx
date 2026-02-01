@@ -2,8 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import { useAuth } from '../../Context/AuthProvider';
 
 const Register = () => {
+  const {isAuthenticated,setIsAuthenticated}=useAuth()
+  const navigateTo = useNavigate();
+
   const[name,setName]=useState("");
   const[email,setEmail]=useState("");
   const[phone,setPhone]=useState("");
@@ -13,7 +17,7 @@ const Register = () => {
   const[photo,setPhoto]=useState("");
   const[photoPreview,setPhotoPreview]=useState("");
 
-//handle photo change when user signup
+// photo change when user signup
 const changePhotoHandler=(e)=>{
   console.log(e);
   const file = e.target.files[0];
@@ -26,7 +30,7 @@ const changePhotoHandler=(e)=>{
 
 };
 
-//handle register form submit
+// register form submit
 const handleRegister = async (e) => {
   e.preventDefault();
   const formData = new FormData();
@@ -46,6 +50,7 @@ const handleRegister = async (e) => {
     });
     console.log(data);
     toast.success(data.message || "User Registered Successfully");
+    setIsAuthenticated(true);
     setName("");
     setEmail("");
     setPhone("");
@@ -54,6 +59,7 @@ const handleRegister = async (e) => {
     SetEducation("");
     setPhoto("");
     setPhotoPreview("");
+    navigateTo('/');
 
 
   }catch(error){
