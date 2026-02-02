@@ -1,16 +1,36 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthProvider';
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoCloseSharp } from "react-icons/io5";
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
-  // Get user and blogs data from context
-  const { user, blogs } = useAuth();
-  
-  // State to show/hide mobile menu
+  const { isAuthenticated, setIsAuthenticated, profile } = useAuth();
+  console.log("Navbar:", { profile, isAuthenticated });
   const [show, setShow] = useState(false);
-  
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.get("http://localhost:4001/api/users/logout", {
+        withCredentials: true,
+      });
+      toast.success(data.message);
+      setIsAuthenticated(false);
+      navigate("/login");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+        error.message ||
+        'Failed to logout'
+      );
+    }
+  };
+
   return (
     <nav className="shadow-lg px-4 py-3 ">
       <div className="flex justify-between items-center container mx-auto">
@@ -41,18 +61,36 @@ const Navbar = () => {
         
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-2">
-          <Link 
-            to="/dashboard" 
-            className="bg-blue-600 text-white font-semibold hover:bg-blue-800 duration-300 px-4 py-2 rounded-md"
-          >
-            DASHBOARD
-          </Link>
-          <Link 
-            to="/login"
-            className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
-          >
-            LOGIN
-          </Link>
+          {isAuthenticated && profile?.role === "admin" ? (
+            <>
+              <Link 
+                to="/dashboard" 
+                className="bg-blue-600 text-white font-semibold hover:bg-blue-800 duration-300 px-4 py-2 rounded-md"
+              >
+                DASHBOARD
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+              >
+                LOGOUT
+              </button>
+            </>
+          ) : isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+            >
+              LOGOUT
+            </button>
+          ) : (
+            <Link 
+              to="/login"
+              className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+            >
+              LOGIN
+            </Link>
+          )}
         </div>
         
         {/* Mobile menu Shows only on small screens */}
@@ -62,7 +100,7 @@ const Navbar = () => {
         
       </div>
       
-      {/* Mobile Menu - Full Screen */}
+  
       {show && (
         <div className="bg-white">
           <ul className="flex flex-col h-screen items-center justify-center space-y-3">
@@ -94,20 +132,38 @@ const Navbar = () => {
             >
               CONTACT
             </Link>
-            <Link 
-              to="/dashboard" 
-              onClick={() => setShow(false)} 
-              className="bg-blue-600 text-white font-semibold hover:bg-blue-800 duration-300 px-4 py-2 rounded-md"
-            >
-              DASHBOARD
-            </Link>
-            <Link 
-              to="/login" 
-              onClick={() => setShow(false)} 
-              className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
-            >
-              LOGIN
-            </Link>
+            {isAuthenticated && profile?.role === "admin" ? (
+              <>
+                <Link 
+                  to="/dashboard" 
+                  onClick={() => setShow(false)} 
+                  className="bg-blue-600 text-white font-semibold hover:bg-blue-800 duration-300 px-4 py-2 rounded-md"
+                >
+                  DASHBOARD
+                </Link>
+                <button
+                  onClick={(e) => { handleLogout(e); setShow(false); }}
+                  className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+                >
+                  LOGOUT
+                </button>
+              </>
+            ) : isAuthenticated ? (
+              <button
+                onClick={(e) => { handleLogout(e); setShow(false); }}
+                className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+              >
+                LOGOUT
+              </button>
+            ) : (
+              <Link 
+                to="/login" 
+                onClick={() => setShow(false)} 
+                className="bg-red-600 text-white font-semibold hover:bg-red-800 duration-300 px-4 py-2 rounded-md"
+              >
+                LOGIN
+              </Link>
+            )}
           </ul>
         </div>
       )}

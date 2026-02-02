@@ -47,9 +47,9 @@ React.useEffect(() => {
  ];
 
     return (
-        <div className='h-screen w-64 bg-linear-to-b from-gray-900 via-slate-900 to-gray-900 border-r border-gray-800 flex flex-col shadow-2xl relative overflow-hidden'>
+        <div className='h-screen w-64 bg-linear-to-b from-gray-900 via-slate-900 to-gray-90 border-r border-gray-800 flex flex-col shadow-2xl relative overflow-hidden'>
             {/*  Background of sidebar*/}
-            <div className='absolute inset-0 opacity-5'>
+                <div className='absolute inset-0 opacity-5 bg-sky-400'>
                 <div className='absolute inset-0' style={{
                     backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
                     backgroundSize: '32px 32px'
@@ -115,7 +115,7 @@ React.useEffect(() => {
                             <Icon className={`text-lg transition-all duration-300 relative z-10 ${
                                 isActive ? 'text-white drop-shadow-lg' : 'text-gray-400 group-hover:text-blue-400 group-hover:scale-110 group-hover:rotate-3'
                             }`} />
-                            <span className='font-medium text-sm relative z-10'>{item.name}</span>
+                            <span className={`font-medium text-sm relative z-10 ${isActive && item.name === 'My Blogs' ? 'text-black' : ''}`}>{item.name}</span>
                             {isActive && (
                                 <div className='ml-auto relative z-10 flex items-center gap-1'>
                                     <div className='w-1.5 h-1.5 bg-white rounded-full animate-ping'></div>

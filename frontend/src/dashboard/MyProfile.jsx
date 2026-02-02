@@ -7,7 +7,7 @@ const MyProfile = () => {
   const { profile } = useAuth();
   const [showEdit, setShowEdit] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  // Edit profile state
+  // Edit profile 
   const [editName, setEditName] = useState(profile?.name || '');
   const [editEmail, setEditEmail] = useState(profile?.email || '');
   const [editPhone, setEditPhone] = useState(profile?.phone || '');
@@ -21,7 +21,7 @@ const MyProfile = () => {
   const handleEditProfile = async (e) => {
     e.preventDefault();
     try {
-      // Replace with your backend endpoint
+      
       await axios.put('http://localhost:4001/api/users/update-profile', {
         name: editName,
         email: editEmail,

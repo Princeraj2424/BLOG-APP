@@ -2,16 +2,18 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useAuth } from '../../Context/AuthProvider';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
 
-const Login = () => {
+function Login() {
+  const { isAuthenticated, setIsAuthenticated, setProfile } = useAuth();
   
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const { fetchProfile } = useAuth();
+  
 
   //handle login form submit
   const handleLogin = async (e) => {
@@ -34,11 +36,13 @@ const Login = () => {
       });
       console.log(data);
 
-      toast.success(data.message || "Login successful!");
+      toast.success(data.message || "Login successful!", { duration: 2000 });
+      setProfile(data);
       setEmail("");
       setPassword("");
       setRole("");
       await fetchProfile();
+      setTimeout(() => toast.dismiss(), 2000);
       navigate('/');
 
     }catch(error){
@@ -49,7 +53,6 @@ const Login = () => {
 
   return (
     <div>
-    <Toaster />
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         {/* Logo Section */}

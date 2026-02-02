@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
             }
         };
         fetchBlogs();
+        // Only set isAuthenticated to true if profile fetch succeeds
         fetchProfile();
     }, []);
 

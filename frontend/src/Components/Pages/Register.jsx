@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../Context/AuthProvider';
 
 const Register = () => {
-  const {isAuthenticated,setIsAuthenticated}=useAuth()
+  const {isAuthenticated,setIsAuthenticated,setProfile}=useAuth()
   const navigateTo = useNavigate();
 
   const[name,setName]=useState("");
@@ -51,6 +51,7 @@ const handleRegister = async (e) => {
     console.log(data);
     toast.success(data.message || "User Registered Successfully");
     setIsAuthenticated(true);
+    setProfile(data);
     setName("");
     setEmail("");
     setPhone("");

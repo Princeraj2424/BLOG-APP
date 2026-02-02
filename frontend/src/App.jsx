@@ -9,6 +9,7 @@ import Login from "./Components/Pages/Login";
 import About from "./Components/Pages/About";
 import Register from "./Components/Pages/Register";
 import Dashboard from "./Components/Pages/Dashboard";
+import AdminRoute from "./Components/AdminRoute";
 import Creator from "./Components/Pages/Creators";
 import { useAuth } from './Context/AuthProvider';
 import { Toaster } from 'react-hot-toast';
@@ -31,7 +32,11 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={
+          <AdminRoute>
+            <Dashboard />
+          </AdminRoute>
+        } />
         {/* routes for update blog */}
         <Route path="/blogs/update/:id" element={<Updateblog />} />
       </Routes>
