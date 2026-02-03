@@ -8,7 +8,7 @@ function Hero() {
     <div className="container mx-auto my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6">
       {blogs && blogs.length > 0 ? (
         blogs.slice(0, 4).map((element) => (
-          <Link to={`/`} key ={element._id} className="bg-white rounded-lg hover:shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+          <Link to={`/blogs/blog/${element._id}`} key={element._id} className="bg-white rounded-lg hover:shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
             <div className='relative'>
               <img src={element.blogImage.url} alt={element.title} 
               className="w-full h-56 object-cover" />

@@ -155,6 +155,15 @@ export const deleteBlog = async(req,res)=>{
                             message: "Invalid image format. Please upload jpg, jpeg or png"
                         });
                     }
+                    // Delete old image from Cloudinary
+                    const oldBlog = await Blog.findById(id);
+                    if (oldBlog && oldBlog.blogImage && oldBlog.blogImage.public_id) {
+                        try {
+                            await cloudinary.uploader.destroy(oldBlog.blogImage.public_id);
+                        } catch (err) {
+                            console.log("Error deleting old image from Cloudinary:", err);
+                        }
+                    }
                     // Upload new image to Cloudinary
                     const cloudinaryResponse = await cloudinary.uploader.upload(blogImage.tempFilePath);
                     if (!cloudinaryResponse || cloudinaryResponse.error) {

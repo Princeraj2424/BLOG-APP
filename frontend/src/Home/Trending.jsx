@@ -45,7 +45,7 @@ function Trending() {
       >
         {blogs && blogs.length > 0 ? (
           blogs.map((element) => (
-            <Link to={`/`} key={element._id} className="bg-white rounded-lg hover:shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group mx-2">
+            <Link to={`/blogs/blog/${element._id}`} key={element._id} className="bg-white rounded-lg hover:shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group mx-2">
               <div className='relative'>
                 <img src={element.blogImage.url} alt={element.title} 
                 className="w-full h-56 object-cover" />

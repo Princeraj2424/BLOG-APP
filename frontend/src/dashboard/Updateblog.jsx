@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -59,7 +60,10 @@ function UpdateBlog() {
     formData.append("category", category);
     formData.append("about", about);
 
-    formData.append("blogImage", blogImage);
+    if (blogImage && typeof blogImage !== 'string') {
+      
+      formData.append("blogImage", blogImage);
+    }
     try {
       const { data } = await axios.put(
         `http://localhost:4001/api/blogs/update/${id}`,
@@ -73,7 +77,7 @@ function UpdateBlog() {
       );
       console.log(data);
       toast.success(data.message || "Blog updated successfully");
-      navigateTo("/");
+      navigateTo(`/blogs/blog/${id}`);
     } catch (error) {
       console.log(error);
       toast.error(

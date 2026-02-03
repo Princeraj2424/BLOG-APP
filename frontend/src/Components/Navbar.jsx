@@ -37,7 +37,7 @@ const Navbar = () => {
         
         {/* Logo  */}
         <div className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Titli<span className="text-blue-500">Blog</span>
+          Titli&nbsp;<span className="text-blue-500">Blog</span>
         </div>
         
         {/* Desktop Menu Links*/}

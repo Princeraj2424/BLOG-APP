@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -25,7 +26,12 @@ function Blogs() {
         {blogs && blogs.length > 0 ? (
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {blogs.map((blog) => (
-              <div key={blog._id} className="bg-white rounded-2xl shadow-lg border-4 border-black hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group overflow-hidden flex flex-col">
+              <Link
+                to={`/blogs/blog/${blog._id}`}
+                key={blog._id}
+                className="bg-white rounded-2xl shadow-lg border-4 border-black hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group overflow-hidden flex flex-col cursor-pointer"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
                 <div className="h-32 w-full overflow-hidden flex items-center justify-center rounded-t-2xl bg-sky-100">
                   <img src={blog.blogImage?.url} alt={blog.title} className="w-full h-full object-cover rounded-t-2xl group-hover:scale-105 transition-transform duration-300 shadow" />
                 </div>
@@ -38,7 +44,7 @@ function Blogs() {
                       : 'Date not available'}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (

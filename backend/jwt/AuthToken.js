@@ -9,9 +9,9 @@ const createTokenAndSaveCookies = async (userId, res) => {
     });
     res.cookie("jwt", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        maxAge: tenMinutes, // 10 minutes
+        secure: false, 
+        sameSite: "lax", 
+        maxAge: tenMinutes, 
     });
 
     await User.findByIdAndUpdate(userId, { token });

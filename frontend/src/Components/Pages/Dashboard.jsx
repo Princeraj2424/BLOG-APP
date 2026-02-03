@@ -8,8 +8,12 @@ import Updateblog from '../../dashboard/Updateblog';
 import { Navigate } from 'react-router-dom';
 
 function Dashboard() {
-  const { profile, isAuthenticated } = useAuth();
+  const { profile, isAuthenticated, loading } = useAuth();
   const [component, setComponent] = useState("My Blogs");
+
+  if (loading) {
+    return <div style={{textAlign: 'center', marginTop: '2rem'}}>Loading...</div>;
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/" />;

@@ -4,13 +4,15 @@ import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
+
 const AuthProvider = ({ children }) => {
     const [blogs, setBlogs] = useState();
     const [profile, setProfile] = useState();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
+    const [loading, setLoading] = useState(true);
 
     const fetchProfile = async () => {
+        setLoading(true);
         try {
             const { data } = await axios.get("http://localhost:4001/api/users/my-profile", {
                 withCredentials: true,
@@ -21,8 +23,12 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             console.log("error fetching profile:", error);
             setIsAuthenticated(false);
+            setProfile(undefined);
+        } finally {
+            setLoading(false);
         }
     };
+
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
@@ -33,12 +39,13 @@ const AuthProvider = ({ children }) => {
             }
         };
         fetchBlogs();
-        // Only set isAuthenticated to true if profile fetch succeeds
         fetchProfile();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ blogs, profile, setProfile, isAuthenticated, setIsAuthenticated, fetchProfile }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ blogs, profile, setProfile, isAuthenticated, setIsAuthenticated, fetchProfile, loading }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 

@@ -2,8 +2,10 @@ import React from 'react'
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import Footer from "./Components/Footer";
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Blogs from "./Components/Pages/Blogs";
+import NotFound from "./Components/Pages/NotFound";
+import BlogDetails from "./Components/Pages/BlogDetails";
 import Contact from "./Components/Pages/Contact";
 import Login from "./Components/Pages/Login";
 import About from "./Components/Pages/About";
@@ -15,17 +17,19 @@ import { useAuth } from './Context/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import Updateblog from './dashboard/Updateblog';
 
+
 const App = () => {
   const location = useLocation();
   const hideNavBarFooter = ["/dashboard", "/login", "/register"].includes(location.pathname);
   
-  const { blogs } = useAuth();
+  const { blogs,isAuthenticated } = useAuth();
+  console.log(isAuthenticated);
   return (
     <div>
   {/*Define Routes*/}
       {!hideNavBarFooter && <Navbar/>}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/creators" element={<Creator />} />
         <Route path="/about" element={<About />} />
@@ -38,7 +42,10 @@ const App = () => {
           </AdminRoute>
         } />
         {/* routes for update blog */}
+        <Route path="/blogs/blog/:id" element={<BlogDetails />} />
         <Route path="/blogs/update/:id" element={<Updateblog />} />
+        {/* NotFound route for unmatched paths */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {/*toast container*/}
       <Toaster/>

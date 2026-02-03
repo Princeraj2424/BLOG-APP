@@ -15,9 +15,10 @@ function Footer() {
           <div>
             <div className="mb-3">
               <Link to="/" className="inline-block group">
-                <h2 className="text-2xl font-bold text-blue-500 hover:text-blue-400 transition-colors duration-300" style={{fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em'}}>
-                  TitliBlog
-                </h2>
+                <div className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Titli&nbsp;<span className="text-blue-500">Blog</span>
+        </div>
+              
                 <p className="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">Your Creative Space</p>
               </Link>
             </div>
